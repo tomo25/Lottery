@@ -17,7 +17,7 @@ function enter(){
 
 
 function random(){
-//乱数を生成する
+//乱数を生成する(とりあえずなんでもok)
 }
 
 modifier restricted(){
