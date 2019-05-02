@@ -1,0 +1,19 @@
+{
+  "name": "lottery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomo25/lottery.git"
+  },
+  "author": "tomo <tomokitaoka25@gmail.com> (https://github.com/tomo25)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomo25/lottery/issues"
+  },
+  "homepage": "https://github.com/tomo25/lottery#readme"
+}
