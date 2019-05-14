@@ -1,42 +1,40 @@
-pragma solidity ^0.5.1;
+pragma  solidity ^0.5.0;
 
 contract lottery {
-	
-address public maneger; //親を一人決める
-address[] public platers; //参加者を配列に納める
+   address public manager;
+   address payable[] public players;
 
-constructor(){
-//親を決める
-}
-
-function enter(){
-//同じ人が二度参加しようとしてないか確認
-//残高条件を満たすか確認
-//ゲームに参加する
-}
-
-
-function random(){
-//乱数を生成する(とりあえずなんでもok)
-}
-
-modifier restricted(){
-//コントラクト作成者にしか呼び出せない修飾子を作ろう
-}
-
-function pickWinner(){ //コントラクト生成者しか呼び出せないようにする
-//当選者の番号を決める
-//当選者が決まる
-//参加者をリセットする
-}
-
-function getPlayers(){
-//参加者を確認する
-}
-
-function getLotteryBalance(){
-//デポジット金額を確認
-}
-
-
+   constructor () public {
+       manager = msg.sender;
+   }
+   function enter() public payable{
+       //同じ人がなんども参加できないようにしましょう
+       for(uint i=0; i< players.length; i++) {
+           require(msg.sender != players[i]);
+       }
+       //0.1ETH以上の参加費を指定しよう
+       require(msg.value > 0.01 ether);
+       players.push(msg.sender);
+   }
+   function random() private view returns (uint) {
+       return uint(keccak256(abi.encodePacked(block.difficulty, now, players)));
+   }
+   function pickWinner() public payable restricted(){
+       uint index = random() % players.length;
+       players[index].transfer(address(this).balance);
+       //抽選の後再度抽選ができるようにメンバーを削除しましょう
+       players = new address payable[](0);
+   }
+   //コントラクト作成者にしか呼び出せない修飾子を作ろう
+   modifier restricted() {
+       require(msg.sender == manager);
+       _;
+   }
+   function getPlayers() public view returns (address payable[] memory) {
+       return players;
+   }
+   //抽選で溜まっている金額を返す関数を書こう
+   function getLotteryBalance() public view returns(uint){
+       return address(this).balance;
+   }
 }
