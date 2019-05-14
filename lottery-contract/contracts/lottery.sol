@@ -19,7 +19,7 @@ contract lottery {
    function random() private view returns (uint) {
        return uint(keccak256(abi.encodePacked(block.difficulty, now, players)));
    }
-   function pickWinner() public payable restricted(){
+   function pickWinner() public restricted(){
        uint index = random() % players.length;
        players[index].transfer(address(this).balance);
        //抽選の後再度抽選ができるようにメンバーを削除しましょう
