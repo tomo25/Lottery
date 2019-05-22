@@ -71,7 +71,7 @@ contract('lottery', function (accounts) {
       );
     });
 
-    it('sends money to the winner and resets the players array', async () => {  //勝者に賞金を送り、参加者の配列をリセットする
+    it('sends money to the winner', async () => {  //勝者に賞金を送り、参加者の配列をリセットする
       await this.lottery.enter({  //親だけが2etherで参加した時
         from: accounts[0],
         value: web3.utils.toWei('2', 'ether')
@@ -83,6 +83,25 @@ contract('lottery', function (accounts) {
       const difference = finalBalance - initialBalance; //残高の変化
 
       assert(difference > web3.utils.toWei('1.8', 'ether')); //残高の変化が1.8ether以上(ガス代考慮)
+    });
+
+    it('resets the players array', async () => {  //勝者に賞金を送り、参加者の配列をリセットする
+      await this.lottery.enter({
+        from: accounts[0],
+        value: web3.utils.toWei('2', 'ether')
+      })
+      await this.lottery.enter({
+        from: accounts[1],
+        value: web3.utils.toWei('2', 'ether')
+      })
+      await this.lottery.enter({
+        from: accounts[2],
+        value: web3.utils.toWei('2', 'ether')
+      })
+
+      await this.lottery.pickWinner({ from: accounts[0] }); //親によって抽選開始
+      const players = await this.lottery.getPlayers()
+      assert.equal(0, players.length); //参加者が0人
     });
 
   });

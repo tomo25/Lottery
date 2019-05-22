@@ -21,6 +21,7 @@
     "chai-bignumber": "^3.0.0"
   },
   "dependencies": {
-    "bignumber.js": "^8.1.1"
+    "bignumber.js": "^8.1.1",
+    "truffle-hdwallet-provider": "^1.0.9"
   }
 }
