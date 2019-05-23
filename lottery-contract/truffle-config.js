@@ -20,8 +20,8 @@
 
 
  // require('dotenv').config();
- // var HDWalletProvider = require("truffle-hdwallet-provider");
- // var mnemonic = process.env["MNEMONIC"];
+  var HDWalletProvider = require("truffle-hdwallet-provider");
+  var mnemonic = "excuse repeat erosion tail ladder cement this grain become nuclear section resemble";
  // var infuraKey = process.env["ENDPOINT_KEY"];
 
  //const HDWalletProvider = require('truffle-hdwallet-provider');
@@ -55,15 +55,12 @@ module.exports = {
     //  network_id: "4",       // Any network (default: none)
     // },
      
-
-
-
-
-        rinkeby: {
-          host: "127.0.0.1",
-          port: 8545,
-          network_id: 4
-        },
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/6e0e0c6dead54347bbd5994f036bc8c6")
+      },
+      network_id: 4
+    }   
 
 
     // Another network with more advanced options...
