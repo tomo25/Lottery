@@ -30,6 +30,11 @@ contract lottery {
        require(msg.sender == manager);
        _;
    }
+
+   function getManager() public view returns (address) {
+       return manager;
+   }
+
    function getPlayers() public view returns (address payable[] memory) {
        return players;
    }
