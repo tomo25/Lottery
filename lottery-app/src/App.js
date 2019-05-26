@@ -32,7 +32,7 @@ async componentDidMount() { //render後にコントラクトのstateをgetして
  console.log(lottery)
   const manager = await lottery.methods.manager().call();  //managar取得
   const players = await lottery.methods.getPlayers().call();  //参加者取得
-  const balance = await web3.eth.getBalance(lottery.options.address);  //コントラクトの残高のはず。しかしmanagarの残高を取得。ちょっと謎
+  const balance = await web3.eth.getBalance(lottery.options.address);  //コントラクトの残高。
   if(players){
     this.setState({ players });
   }
