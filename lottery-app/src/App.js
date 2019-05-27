@@ -19,8 +19,6 @@ class App extends Component {
 
 async componentDidMount() { //render後にコントラクトのstateをgetしてくる
   if (window.ethereum) {
-  }
-  //if (window.ethereum) {
     try {
       // Request account access
       await window.ethereum.enable();
@@ -28,15 +26,11 @@ async componentDidMount() { //render後にコントラクトのstateをgetして
       // User denied account access...
       console.error("User denied account access")
     }
- // }
- console.log(lottery)
+  }
   const manager = await lottery.methods.manager().call();  //managar取得
   const players = await lottery.methods.getPlayers().call();  //参加者取得
   const balance = await web3.eth.getBalance(lottery.options.address);  //コントラクトの残高。
-  if(players){
-    this.setState({ players });
-  }
-  this.setState({ manager, balance }); //classのsatateをブロックチェーン上のものと同期させる
+  this.setState({ manager, players, balance }); //classのsatateをブロックチェーン上のものと同期させる
 }
 
 
